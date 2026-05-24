@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__plugin_pokemon-gbl_mons-db__list_mons",
+      "mcp__plugin_pokemon-gbl_mons-db__collection_summary",
+      "mcp__plugin_pokemon-gbl_mons-db__get_mon",
+      "mcp__plugin_pokemon-gbl_mons-db__search_mons",
+      "Bash(sqlite ~/.cache/pokemon-gbl/mons.db *)",
+      "Bash(python3 scripts/patch-mon.py *)",
+      "Bash(npx biome check *)",
+      "Bash(npm run verify *)",
+      "Bash(npm run lint *)",
+      "Bash(npm test *)"
+    ]
+  }
+}

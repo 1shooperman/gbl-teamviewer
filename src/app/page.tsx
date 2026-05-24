@@ -1,7 +1,7 @@
-import MonGrid from "@/components/MonGrid";
-import type { Mon } from "@/lib/types";
 import fs from "node:fs";
 import path from "node:path";
+import MonGrid from "@/components/MonGrid";
+import type { Mon } from "@/lib/types";
 
 function loadMons(): Mon[] {
 	const p = path.join(process.cwd(), "src/data/mons.json");

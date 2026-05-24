@@ -54,6 +54,15 @@ specs/*
 
 SPEC.md
 
-
+.claudenvrc
 
 **/data/**
+
+ralph-loop.local.md
+
+notes.txt
+
+wiki/**
+!.gitkeep
+
+.cache/**

@@ -1,8 +1,14 @@
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
 
 body {
-  background: #0f0f19;
-  color: #fff;
-  font-family: var(--font-chakra), 'Chakra Petch', system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
+	background: #0f0f19;
+	color: #fff;
+	font-family: var(--font-chakra), "Chakra Petch", system-ui, sans-serif;
+	-webkit-font-smoothing: antialiased;
 }

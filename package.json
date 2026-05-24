@@ -6,7 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "refresh": "python3 ../scripts/build_mons_data.py"
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "biome check src/",
+    "lint:fix": "biome check --write src/",
+    "verify": "tsc --noEmit",
+    "refresh": "python3 ../scripts/build_mons_data.py",
+    "rebuild-cache": "npx tsx scripts/rebuild-mons-cache.ts",
+    "update-data": "python3 scripts/fetch-mons-cache.py && npx tsx scripts/rebuild-mons-cache.ts"
   },
   "dependencies": {
     "next": "^15.3.2",
@@ -14,9 +22,17 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22",
+    "@biomejs/biome": "^2.4.15",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^25",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "typescript": "^5"
+    "@vitejs/plugin-react": "^6.0.2",
+    "@vitest/coverage-v8": "^4.1.7",
+    "jsdom": "^29.1.1",
+    "tsx": "^4.22.3",
+    "typescript": "^6",
+    "vitest": "^4.1.7"
   }
 }

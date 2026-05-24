@@ -1,4 +1,7 @@
 .card {
+	appearance: none;
+	padding: 0;
+	text-align: left;
 	border-radius: 10px;
 	width: 210px;
 	aspect-ratio: 2.5 / 3.5;
@@ -15,6 +18,7 @@
 		transform 0.18s ease,
 		box-shadow 0.18s ease;
 	position: relative;
+	cursor: pointer;
 }
 
 .card:hover {
@@ -259,4 +263,86 @@
 	color: #ffd700;
 	font-weight: 800;
 	margin-left: 1px;
+}
+
+/* ── Click-to-expand overlay ── */
+.expandOverlay {
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.72);
+	z-index: 10;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 10px;
+	backdrop-filter: blur(2px);
+}
+
+.expandDialog {
+	background: rgba(15, 15, 20, 0.96);
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	border-radius: 10px;
+	padding: 14px 16px;
+	width: 82%;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+}
+
+.expandMove {
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+}
+
+.expandMoveLabel {
+	font-size: 8.5px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: rgba(255, 255, 255, 0.4);
+}
+
+.expandMoveMain {
+	display: flex;
+	align-items: center;
+	gap: 7px;
+}
+
+.expandMoveTypeIcon {
+	width: 22px;
+	height: 22px;
+	object-fit: contain;
+	flex-shrink: 0;
+	filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+}
+
+.expandMoveTypePlaceholder {
+	width: 22px;
+	height: 22px;
+	flex-shrink: 0;
+}
+
+.expandMoveName {
+	font-size: 15px;
+	font-weight: 700;
+	color: #fff;
+	letter-spacing: 0.02em;
+	line-height: 1.2;
+}
+
+.expandMoveStat {
+	font-size: 13px;
+	font-weight: 700;
+	color: rgba(255, 220, 80, 0.9);
+	letter-spacing: 0.03em;
+	margin-top: 1px;
+	padding-left: 29px;
+}
+
+.expandNoMoves {
+	font-size: 11px;
+	color: rgba(255, 255, 255, 0.3);
+	font-style: italic;
 }

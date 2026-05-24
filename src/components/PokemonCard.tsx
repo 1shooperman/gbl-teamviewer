@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import { cardBackground, type Mon, typeIconUrl } from "@/lib/types";
 import styles from "./PokemonCard.module.css";
 
@@ -82,6 +83,7 @@ export default function PokemonCard({ mon }: { mon: Mon }) {
 		.filter(Boolean)
 		.join(" ");
 	const hasMoves = mon.fastMove || mon.chargeMove1;
+	const [expanded, setExpanded] = useState(false);
 
 	const rankFontSize =
 		mon.glRank != null
@@ -93,13 +95,15 @@ export default function PokemonCard({ mon }: { mon: Mon }) {
 			: 12;
 
 	return (
-		<div
+		<button
+			type="button"
 			className={[
 				styles.card,
 				mon.shadow ? styles.shadowCard : "",
 				mon.purified ? styles.purifiedCard : "",
 			].join(" ")}
 			style={{ background: bg }}
+			onClick={() => setExpanded((v) => !v)}
 		>
 			{/* Header */}
 			<div className={styles.header}>
@@ -199,6 +203,87 @@ export default function PokemonCard({ mon }: { mon: Mon }) {
 
 				<div className={styles.badges}></div>
 			</div>
+
+			{/* Click-to-expand overlay */}
+			{expanded && (
+				<div className={styles.expandOverlay}>
+					<div className={styles.expandDialog}>
+						{hasMoves ? (
+							<>
+								{mon.fastMove && (
+									<MoveRowLarge
+										move={mon.fastMove}
+										moveType={mon.fastMoveType}
+										stat={
+											mon.fastMoveTurns != null
+												? `${mon.fastMoveTurns} turns`
+												: null
+										}
+										label="Fast"
+									/>
+								)}
+								{mon.chargeMove1 && (
+									<MoveRowLarge
+										move={mon.chargeMove1}
+										moveType={mon.chargeMove1Type}
+										stat={
+											mon.chargeMove1Energy != null
+												? `${mon.chargeMove1Energy}e${mon.chargeMove1Attacks != null ? ` ×${mon.chargeMove1Attacks}` : ""}`
+												: null
+										}
+										label="Charge 1"
+									/>
+								)}
+								{mon.chargeMove2 && (
+									<MoveRowLarge
+										move={mon.chargeMove2}
+										moveType={mon.chargeMove2Type}
+										stat={
+											mon.chargeMove2Energy != null
+												? `${mon.chargeMove2Energy}e${mon.chargeMove2Attacks != null ? ` ×${mon.chargeMove2Attacks}` : ""}`
+												: null
+										}
+										label="Charge 2"
+									/>
+								)}
+							</>
+						) : (
+							<span className={styles.expandNoMoves}>no move data</span>
+						)}
+					</div>
+				</div>
+			)}
+		</button>
+	);
+}
+
+function MoveRowLarge({
+	move,
+	moveType,
+	stat,
+	label,
+}: {
+	move: string;
+	moveType: string | null;
+	stat: string | null;
+	label: string;
+}) {
+	return (
+		<div className={styles.expandMove}>
+			<span className={styles.expandMoveLabel}>{label}</span>
+			<div className={styles.expandMoveMain}>
+				{moveType ? (
+					<img
+						src={typeIconUrl(moveType)}
+						alt={moveType}
+						className={styles.expandMoveTypeIcon}
+					/>
+				) : (
+					<span className={styles.expandMoveTypePlaceholder} />
+				)}
+				<span className={styles.expandMoveName}>{move}</span>
+			</div>
+			{stat && <span className={styles.expandMoveStat}>{stat}</span>}
 		</div>
 	);
 }

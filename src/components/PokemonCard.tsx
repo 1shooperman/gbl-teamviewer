@@ -95,7 +95,8 @@ export default function PokemonCard({ mon }: { mon: Mon }) {
 			: 12;
 
 	return (
-		<div
+		<button
+			type="button"
 			className={[
 				styles.card,
 				mon.shadow ? styles.shadowCard : "",
@@ -213,7 +214,11 @@ export default function PokemonCard({ mon }: { mon: Mon }) {
 									<MoveRowLarge
 										move={mon.fastMove}
 										moveType={mon.fastMoveType}
-										stat={mon.fastMoveTurns != null ? `${mon.fastMoveTurns} turns` : null}
+										stat={
+											mon.fastMoveTurns != null
+												? `${mon.fastMoveTurns} turns`
+												: null
+										}
 										label="Fast"
 									/>
 								)}
@@ -248,7 +253,7 @@ export default function PokemonCard({ mon }: { mon: Mon }) {
 					</div>
 				</div>
 			)}
-		</div>
+		</button>
 	);
 }
 

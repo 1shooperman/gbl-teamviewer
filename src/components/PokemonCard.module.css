@@ -1,4 +1,7 @@
 .card {
+	appearance: none;
+	padding: 0;
+	text-align: left;
 	border-radius: 10px;
 	width: 210px;
 	aspect-ratio: 2.5 / 3.5;

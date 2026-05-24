@@ -22,20 +22,23 @@ function filterAndSort(
 		sort = "rank",
 	} = opts;
 
-	const idQuery = search.startsWith("#")
-		? search.slice(1)
-		: /^\d+$/.test(search)
-			? search
-			: null;
+	const terms = search
+		.split(",")
+		.map((t) => t.trim())
+		.filter(Boolean);
+
+	const matchesTerm = (m: Mon, term: string) => {
+		const idQuery = term.startsWith("#")
+			? term.slice(1)
+			: /^\d+$/.test(term)
+				? term
+				: null;
+		if (idQuery !== null) return m.id.toString() === idQuery;
+		return m.species.toLowerCase().includes(term.toLowerCase());
+	};
 
 	const result = mons.filter((m) => {
-		if (search) {
-			if (idQuery !== null) {
-				if (m.id.toString() !== idQuery) return false;
-			} else if (!m.species.toLowerCase().includes(search.toLowerCase())) {
-				return false;
-			}
-		}
+		if (terms.length > 0 && !terms.some((t) => matchesTerm(m, t))) return false;
 		if (shadow === "yes" && !m.shadow) return false;
 		if (shadow === "no" && m.shadow) return false;
 		if (legacy && !m.legacyMove) return false;
@@ -162,6 +165,15 @@ describe("search", () => {
 
 	it("returns empty for no match", () => {
 		expect(filterAndSort(MONS, { search: "mew" })).toHaveLength(0);
+	});
+
+	it("comma-delimited: returns union of matches", () => {
+		const r = filterAndSort(MONS, { search: "char, 9, mil" });
+		const names = r.map((m) => m.species);
+		expect(names).toContain("Charizard");
+		expect(names).toContain("Blastoise");
+		expect(names).toContain("Milotic");
+		expect(r).toHaveLength(3);
 	});
 });
 

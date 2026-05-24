@@ -21,19 +21,24 @@ export default function MonGrid({ mons }: { mons: Mon[] }) {
 	}, [mons]);
 
 	const filtered = useMemo(() => {
-		const idQuery = search.startsWith("#")
-			? search.slice(1)
-			: /^\d+$/.test(search)
-				? search
-				: null;
+		const terms = search
+			.split(",")
+			.map((t) => t.trim())
+			.filter(Boolean);
+
+		const matchesTerm = (m: Mon, term: string) => {
+			const idQuery = term.startsWith("#")
+				? term.slice(1)
+				: /^\d+$/.test(term)
+					? term
+					: null;
+			if (idQuery !== null) return m.id.toString() === idQuery;
+			return m.species.toLowerCase().includes(term.toLowerCase());
+		};
+
 		let result = mons.filter((m) => {
-			if (search) {
-				if (idQuery !== null) {
-					if (m.id.toString() !== idQuery) return false;
-				} else if (!m.species.toLowerCase().includes(search.toLowerCase())) {
-					return false;
-				}
-			}
+			if (terms.length > 0 && !terms.some((t) => matchesTerm(m, t)))
+				return false;
 			if (shadow === "yes" && !m.shadow) return false;
 			if (shadow === "no" && m.shadow) return false;
 			if (legacy && !m.legacyMove) return false;

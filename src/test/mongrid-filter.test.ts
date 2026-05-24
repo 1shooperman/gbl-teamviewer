@@ -38,8 +38,7 @@ function filterAndSort(
 	};
 
 	const result = mons.filter((m) => {
-		if (terms.length > 0 && !terms.some((t) => matchesTerm(m, t)))
-			return false;
+		if (terms.length > 0 && !terms.some((t) => matchesTerm(m, t))) return false;
 		if (shadow === "yes" && !m.shadow) return false;
 		if (shadow === "no" && m.shadow) return false;
 		if (legacy && !m.legacyMove) return false;

@@ -1,4 +1,3 @@
-# pokemon-cards
 
 ## Data
 

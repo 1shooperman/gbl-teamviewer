@@ -17,7 +17,7 @@
     "update-data": "python3 scripts/fetch-mons-cache.py && npx tsx scripts/rebuild-mons-cache.ts"
   },
   "dependencies": {
-    "next": "^15.3.2",
+    "next": "^16.2.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
